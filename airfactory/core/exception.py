@@ -2,12 +2,12 @@
 
 
 class DagFactoryException(Exception):
-    """
-    Base class for all dag-factory errors.
-    """
+  """
+  Base class for all dag-factory errors.
+  """
 
 
 class DagFactoryConfigException(Exception):
-    """
-    Raise for dag-factory config errors.
-    """
+  """
+  Raise for dag-factory config errors.
+  """
