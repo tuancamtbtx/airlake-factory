@@ -3,7 +3,7 @@ Dynamically build Airflow DAGs from YAML files
 
 **Airlake Factory Tool**
 
-![tool](../assets/dag_factory.png)
+![tool](./assets/dag_factory.png)
 
 
 ## Install Airlake Factory Package
