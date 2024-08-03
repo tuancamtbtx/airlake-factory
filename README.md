@@ -68,7 +68,14 @@ load_dag(globals(), name, conf)
 ```
 
 ## Benefits
-- Construct DAGs without knowing Python
-- Construct DAGs without learning Airflow primitives
-- Avoid duplicative code
-- Everyone loves YAML! ;)
+**Design Principle:**
+- Sync a table from MySQL/PostgreSQL in 10 lines of config
+- Config should be clean, users just need to write minimal key to make a dag run
+- Non-Tech users could write it without thinking about programming complex
+- Alerting & Retrying must be enable by default
+- RBAC Authorization must be provided.
+- Users can backfill data when they want, via an UI.
+
+**Runtime Cost**
+- This system should be fault-tolerance
+- Reduce 70% Cost by Running preemptible VMs
