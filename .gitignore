@@ -121,3 +121,6 @@ pip-selfcheck.json
 
 
 private/
+
+airflow-data/
+logs/

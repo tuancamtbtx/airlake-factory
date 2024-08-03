@@ -19,10 +19,6 @@ COPY --chown=airflow:airflow . /bigdata/airfactory
 COPY requirements.txt /
 ENV PYTHONPATH=$PYTHONPATH:/bigdata/airfactory
 
-ENV TINI_VERSION v0.19.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-RUN chmod +x /tini
-
 USER airflow
 
 COPY requirements.txt /
@@ -34,4 +30,3 @@ WORKDIR $AIRFLOW_HOME
 RUN mkdir -p /home/airflow/.local/lib/python3.8/site-packages
 RUN mkdir -p /home/airflow/airflow
 
-ENTRYPOINT ["tini", "--"]
