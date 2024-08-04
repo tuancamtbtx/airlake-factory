@@ -6,7 +6,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -28,7 +28,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -50,7 +50,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -72,7 +72,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -94,7 +94,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -116,7 +116,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -138,7 +138,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -160,7 +160,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -182,7 +182,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: tiki.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
@@ -204,7 +204,7 @@ node_presets:
         requiredDuringSchedulingIgnoredDuringExecution:
           nodeSelectorTerms:
             - matchExpressions:
-                - key: ab.dedicated
+                - key: key.dedicated
                   operator: In
                   values:
                     - preempt-highmem
