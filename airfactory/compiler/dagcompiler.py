@@ -83,6 +83,10 @@ class CommonCompiler(abc.ABC):
       }
     return {**conf, **updated}
 
+  def operators_conf(self) -> Dict[str, Any]:
+    # return self._operators_conf
+    pass
+  
   def _resolve_task_ops(self, task: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     """Resolve short hand operator to full module path
     BigQueryOperator -> airflow.contrib.operators.bigquery_operator.BigQueryOperator

@@ -51,9 +51,9 @@ class AirlakeDagBuilder(LoggerMixing):
         dag_params.get("schedule_interval", None) or None
     )
     self.verify_cron(schedule_interval)
-    # timetable: Optional[Dict] = (
-    #     dag_params.get("timetable", None) or None
-    # )
+    timetable: Optional[Dict] = (
+        dag_params.get("timetable", None) or None
+    )
     args = dict(
       execution_time=timestamp.seconds_to_delta(
         dag_params.get("execution_timeout", 0)
@@ -78,8 +78,8 @@ class AirlakeDagBuilder(LoggerMixing):
         "is_paused_upon_creation", None),
       default_args=default_args,
       catchup=False,
-      # start_date=default_args.get(
-      #   DefaultARGsFields.StartDate, pendulum.today(tz=DEFAULT_TIMEZONE)),
+      start_date=default_args.get(
+        DefaultARGsFields.StartDate, pendulum.today(tz=DEFAULT_TIMEZONE)),
       tags=dag_params.get("tags", []),
       default_view=dag_params.get("default_view", "tree"),
     )
