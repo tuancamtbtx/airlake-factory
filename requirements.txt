@@ -1,10 +1,6 @@
 coloredlogs==15.0.1
-confluent_kafka==2.4.0
 deepmerge==1.1.1
 loguru
 PyYAML==6.0
 pytest
-black
-pylint
-apache-airflow[slack,async,statsd,postgres,http,presto,sftp,trino,redis]==2.9.2
-astroid >=2.4.0
+pendulum

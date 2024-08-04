@@ -26,8 +26,7 @@ from airflow import DAG
 from airfactory.render import load_dag
 
 conf = {{ json_conf }}
-name = '{{ name }}'
-load_dag(globals(), name, conf)
+load_dag(globals(), conf)
 """
 )
 
@@ -43,10 +42,7 @@ def load_dag(globals, conf: Dict[str, Any]):
   Returns:
       None
   """
-  AirlakeDagFactory(
-    config=conf
-  ).generate_dags(globals)
-
+  pass
 
 class RenderToDagFile(LoggerMixing):
   def __init__(self, dag_repo, dag_config):

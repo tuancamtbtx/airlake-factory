@@ -4,19 +4,21 @@ from typing import Optional, Dict, Any, List
 import pendulum
 from airflow import DAG
 
+from airfactory.dagbuilder import AirlakeDagBuilder
 from airfactory.common.logger import LoggerMixing
 from airfactory.core.consts import DagFields, DefaultARGsFields
 from airfactory.core.exception import DagFactoryConfigException
-
+from airfactory.core.yaml import YamlReader
 
 class AirlakeDagFactory(LoggerMixing):
+
   def __init__(self, config_filepath: Optional[str] = None, config: Dict[str, Any] = None
                ) -> None:
     assert bool(config_filepath) ^ bool(
       config
     ), "Either `config_filepath` or `config` should be provided"
     if config_filepath:
-      AirlakeDagFactory._validate_config_filepath(config_filepath=config_filepath)
+      self._validate_config_filepath(config_filepath=config_filepath)
       self.config: Dict[str, Any] = AirlakeDagFactory._load_config(
         config_filepath=config_filepath
       )
@@ -82,5 +84,14 @@ class AirlakeDagFactory(LoggerMixing):
   def build_dags(self) -> Dict[str, Any]:
     dags: Dict[str, Any] = {}
     for dag_id, dag_params in self.config.items():
-      pass
+      dag_id, dag = AirlakeDagBuilder(
+        dag_name=dag_id,
+        dag_config=dag_params,
+      ).build()
+      dags[dag_id] = dag
     return dags
+  
+  def _load_config(config_filepath: str) -> Dict[str, Any]:
+    yaml_conf = YamlReader()
+    content = yaml_conf.read(config_filepath)
+    return content

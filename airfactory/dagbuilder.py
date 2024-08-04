@@ -27,7 +27,7 @@ def identify_fn(v):
   return v
 
 
-class AirlakeDataBuilder(LoggerMixing):
+class AirlakeDagBuilder(LoggerMixing):
   """
   A factory class for building DAG objects based on provided configurations.
   """
@@ -65,6 +65,7 @@ class AirlakeDataBuilder(LoggerMixing):
     dag_id = dag_params["dag_id"]
     self.validate_label(dag_id)
     self.logger.info(f"Building DAG {dag_id}")
+    self.logger.info(f"dags: {dag_params}")
     dag: DAG = DAG(
       dag_id,
       schedule_interval=schedule_interval,
@@ -79,10 +80,13 @@ class AirlakeDataBuilder(LoggerMixing):
       start_date=default_args.get(
         DefaultARGsFields.StartDate, pendulum.today(tz=DEFAULT_TIMEZONE)),
       tags=dag_params.get("tags", []),
+      default_view=dag_params.get("default_view", "tree"),
     )
     tasks: Dict[str, Dict[str, Any]] = dag_params[DagFields.Tasks]
     self.logger.info(f"Building tasks for DAG {dag_id} with tasks: {tasks}")
-    return dag_id, self.make_tasks(tasks, dag=dag)
+    self.make_tasks(tasks, dag=dag)
+
+    return dag_id, dag
 
   @classmethod
   def make_tasks(

@@ -1,9 +1,12 @@
 from airfactory.core.yaml import YamlReader
 
-def test_yaml_config():
-    path = "./tests/dags/test.yaml"
-    yaml_conf = YamlReader()
-    content = yaml_conf.read(path)
-    print(content)
+import unittest
 
-test_yaml_config()
+import jsonschema
+class TestAirlakeConfig(unittest.TestCase):
+    def test_yaml_config():
+        path = "./tests/dags/test.yaml"
+        yaml_conf = YamlReader()
+        content = yaml_conf.read(path)
+        print(content)
+
