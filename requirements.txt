@@ -4,4 +4,3 @@ loguru
 PyYAML==6.0
 pytest
 pendulum==3.0.0
-apache-airflow==2.2.3

@@ -13,7 +13,6 @@ default_args:
   email_on_retry: false
   retries: 1
   default_view: tree
-
 dags:
   test_dag_daily:
     tasks:
@@ -29,3 +28,19 @@ dags:
         sla: 30
         dependencies:
           - task1
+      test_sub_dag_daily:
+        operator: TaskGroup
+        dependencies: ["task2"]
+        tasks:
+          tasksub1:
+            operator: airflow.operators.bash.BashOperator
+            bash_command: echo 1
+            execution_timeout: 60
+            sla: 30
+          tasksub2:
+            operator: airflow.operators.bash.BashOperator
+            bash_command: echo 2
+            execution_timeout: 60
+            sla: 30
+            dependencies:
+              - tasksub1

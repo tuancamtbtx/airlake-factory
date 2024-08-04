@@ -1,6 +1,6 @@
 from airfactory.dagbuilder import AirlakeDagBuilder
 from airfactory.dagconfig import AirlakeDagConfig,TeamConfig
-
+from airfactory.compiler.dagcompiler import CommonCompiler
 team_conf = TeamConfig(
 	name="bigdata",
 	pool="bigdata",

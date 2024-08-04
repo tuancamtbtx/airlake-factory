@@ -1,6 +1,6 @@
 import os
 import yaml
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional,Tuple
 from dataclasses import dataclass
 import dataclasses
 
@@ -98,6 +98,15 @@ class AirlakeDagConfig(LoggerMixing):
       conf.get("apiVerion") or conf.get("apiVersion") or SupportCompiler.V1
     )
     return list(self.dag_compilers[apiVerion].compile(conf, extra))
+  
+  def _try_gen(self, conf: Dict[str, Any]) -> Tuple[bool, List[str], str]:
+    compiled_dags = []
+    try:
+      compiled_dags = self.compile(conf)
+    except Exception as e:
+      self.logger.error("Failed to compile the dags", exc_info=True)
+      return False, compiled_dags, str(e)
+
 
   def read_content(self ):
     with open(self.path, "r") as f:
