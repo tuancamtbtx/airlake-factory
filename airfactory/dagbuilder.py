@@ -51,9 +51,9 @@ class AirlakeDagBuilder(LoggerMixing):
         dag_params.get("schedule_interval", None) or None
     )
     self.verify_cron(schedule_interval)
-    timetable: Optional[Dict] = (
-        dag_params.get("timetable", None) or None
-    )
+    # timetable: Optional[Dict] = (
+    #     dag_params.get("timetable", None) or None
+    # )
     args = dict(
       execution_time=timestamp.seconds_to_delta(
         dag_params.get("execution_timeout", 0)
@@ -65,9 +65,10 @@ class AirlakeDagBuilder(LoggerMixing):
     dag_id = dag_params["dag_id"]
     self.validate_label(dag_id)
     self.logger.info(f"Building DAG {dag_id}")
-    self.logger.info(f"dags: {dag_params}")
+    self.logger.info(f"dag_params: {dag_params}")
     dag: DAG = DAG(
       dag_id,
+      description=dag_params.get("description", ""),
       schedule_interval=schedule_interval,
       max_active_runs=dag_params.get(
         "max_active_runs",
@@ -77,15 +78,14 @@ class AirlakeDagBuilder(LoggerMixing):
         "is_paused_upon_creation", None),
       default_args=default_args,
       catchup=False,
-      start_date=default_args.get(
-        DefaultARGsFields.StartDate, pendulum.today(tz=DEFAULT_TIMEZONE)),
+      # start_date=default_args.get(
+      #   DefaultARGsFields.StartDate, pendulum.today(tz=DEFAULT_TIMEZONE)),
       tags=dag_params.get("tags", []),
       default_view=dag_params.get("default_view", "tree"),
     )
     tasks: Dict[str, Dict[str, Any]] = dag_params[DagFields.Tasks]
     self.logger.info(f"Building tasks for DAG {dag_id} with tasks: {tasks}")
     self.make_tasks(tasks, dag=dag)
-
     return dag_id, dag
 
   @classmethod

@@ -22,17 +22,14 @@ class DefaultARGsFields:
 
 class DagFields:
   DefaultArgs = FIELD_DAGS_DEFAULT_ARGS
-  Owner = "owner"
   DefaultArg = FIELD_DAGS_DEFAULT_ARGS
+  Name = FIELD_DAGS_NAME
   Tasks = "tasks"
   Tags = "tags"
-  Name = FIELD_DAGS_NAME
+  Owner = "owner"
   Kind = "kind"
   Refs = "refs"
   SharedTasks = "shared_tasks"
-
-
-class DagFieldsV2:
   Dags = "dags"
 
 

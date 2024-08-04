@@ -1,37 +1,34 @@
 from airfactory.dagbuilder import AirlakeDagBuilder
+from airfactory.compiler.dagcompiler import CommonCompiler
+from airfactory.dagconfig import AirlakeDagConfig
 
-
+dag_conf = AirlakeDagConfig(
+    path="./tests/dags/test.yaml"
+)
+dag_config = dag_conf.read_content()
+print(dag_config)
 dag = AirlakeDagBuilder(
     dag_name="test_dag",
     dag_config={
-        "apiVersion": "airfactory/v1.0.0",
-        "schedule_interval": "0 0 * * *",
-        "timetable": {
-            "start_date": "2024-08-01",
-            "end_date": "2024-08-02",
-        },
+        "name": "test_dag",
+        "schedule": "0 0 * * *",
         "default_args": {
-            "owner": "nguyenvantuan140397@gmail.com",
+            "owner": "airflow",
             "depends_on_past": False,
+            "start_date": "2024-08-01",
             "email_on_failure": False,
             "email_on_retry": False,
             "retries": 1,
-            "default_view": "tree",
-            "tags": ["example"],
         },
         "tasks": {
-            "task1": {
+            "task_1": {
                 "operator": "airflow.operators.bash.BashOperator",
-                "bash_command": "echo 1",
-                "execution_timeout": 60,
-                "sla": 30,
+                "bash_command": "echo ",
             },
-            "task2": {
+            "task_2": {
                 "operator": "airflow.operators.bash.BashOperator",
-                "bash_command": "echo 2",
-                "execution_timeout": 60,
-                "sla": 30,
-                "dependencies": ["task1"],
+                "bash_command": "echo 1",   
+                "dependencies": ["task_1"]
             },
         }
     },

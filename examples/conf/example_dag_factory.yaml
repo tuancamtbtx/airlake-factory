@@ -1,5 +1,8 @@
 apiVersion: v1
 kind: DAG
+description: Example DAG
+tags:
+  - example
 schedule_interval: 0 0 * * *
 timetable:
   start_date: '2024-08-01'
@@ -11,8 +14,6 @@ default_args:
   email_on_retry: false
   retries: 1
   default_view: tree
-  tags:
-    - example
 dags:
   test_dag_daily:
     tasks:

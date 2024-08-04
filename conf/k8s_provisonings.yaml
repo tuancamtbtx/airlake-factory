@@ -1,0 +1,218 @@
+node_presets:
+  # define common resources for airflow
+  db_sync:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "9"
+        memory: 12Gi
+      requests:
+        cpu: "8"
+        memory: 8Gi
+
+  default:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: 1500m
+        memory: 2000Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi
+
+  preempt_medium:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "3"
+        memory: 4000Mi
+      requests:
+        cpu: "1"
+        memory: 2000Mi
+
+  preempt_large:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "8"
+        memory: 30000Mi
+      requests:
+        cpu: "6"
+        memory: 28000Mi
+
+  stable_small:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "1"
+        memory: 1000Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi
+
+  stable_medium:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "4"
+        memory: "8Gi"
+      requests:
+        cpu: "2"
+        memory: "4Gi"
+
+  stable_large:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "7"
+        memory: "14Gi"
+      requests:
+        cpu: "6"
+        memory: "12Gi"
+
+  stable_highmem_small:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "1"
+        memory: 6Gi
+      requests:
+        cpu: 200m
+        memory: 2Gi
+
+  stable_highmem_medium:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: tiki.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      limits:
+        cpu: "4"
+        memory: "14Gi"
+      requests:
+        cpu: "2"
+        memory: "10Gi"
+
+  stable_highmem_large:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: ab.dedicated
+                  operator: In
+                  values:
+                    - preempt-highmem
+                - key: topology.kubernetes.io/zone
+                  operator: In
+                  values:
+                    - asia-southeast1-c
+    resources:
+      requests:
+        cpu: "4500m"
+        memory: "35Gi"

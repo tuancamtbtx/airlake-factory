@@ -6,7 +6,7 @@ Timestamp 2024-08-03T17:09:31.157517+07:00
 
 from airflow import DAG
 
-from airfactory.dagfactory import AirlakeDagFactory
+from airfactory.dagrender import AirlakeDagFactory
 
 config_filepath = "./conf/example_dag_factory.yaml"
 

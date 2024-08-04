@@ -1,12 +1,25 @@
-from airfactory.core.yaml import YamlReader
+from airfactory.dagconfig import AirlakeDagConfig,TeamConfig
 
-import unittest
-
-import jsonschema
-class TestAirlakeConfig(unittest.TestCase):
-    def test_yaml_config():
-        path = "./tests/dags/test.yaml"
-        yaml_conf = YamlReader()
-        content = yaml_conf.read(path)
-        print(content)
-
+team_conf = TeamConfig(
+	name="bigdata",
+	pool="bigdata",
+	prefix="bigdata",
+	owner="bigdata",
+	team_dir="bigdata",
+	repo_id="bigdata",
+	role_id=1,
+	alert=None,
+	conns=None,
+	type="yaml"
+)
+dag_conf = AirlakeDagConfig(
+	path="./tests/dags/test.yaml"
+)
+config = dag_conf.read_content()
+merge_config = dag_conf.merge_conf(
+	conf=config,
+	sub_path="de",
+	default_conf=team_conf
+)
+compile_config = dag_conf.compile(conf=merge_config)
+print(compile_config)
