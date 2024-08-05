@@ -1,12 +1,10 @@
 apiVersion: v1
-kind: DAG
-description: Example DAG
-tags:
-  - example
 schedule_interval: 0 0 * * *
 timetable:
   start_date: '2024-08-01'
   end_date: '2024-08-02'
+tags:
+  - example
 default_args:
   owner: nguyenvantuan140397@gmail.com
   depends_on_past: false
@@ -14,18 +12,47 @@ default_args:
   email_on_retry: false
   retries: 1
   default_view: tree
-dags:
-  test_dag_daily:
+name: test_dag_daily
+tasks:
+  load_data:
+    operator: airflow.operators.bash.BashOperator
+    bash_command: echo 1
+    execution_timeout: 60
+    sla: 30
+  transform_data:
+    operator: airflow.operators.bash.BashOperator
+    bash_command: echo 2
+    execution_timeout: 60
+    sla: 30
+    dependencies:
+      - load_data
+  tuning_model_group:
+    operator: TaskGroup
+    dependencies: ["transform_data"]
     tasks:
-      task1:
+      train_model:
         operator: airflow.operators.bash.BashOperator
         bash_command: echo 1
         execution_timeout: 60
         sla: 30
-      task2:
+      test_model:
         operator: airflow.operators.bash.BashOperator
         bash_command: echo 2
         execution_timeout: 60
         sla: 30
         dependencies:
-          - task1
+          - train_model
+      validation_model:
+        operator: airflow.operators.bash.BashOperator
+        bash_command: echo 2
+        execution_timeout: 60
+        sla: 30
+        dependencies:
+          - train_model
+  export_model:
+    operator: airflow.operators.bash.BashOperator
+    bash_command: echo 2
+    execution_timeout: 60
+    sla: 30
+    dependencies:
+      - tuning_model_group

@@ -1,6 +1,6 @@
 import dataclasses
-from typing import Any, Dict, List, Optional
 import os
+from typing import Any, Dict, List, Optional
 
 import dacite
 import yaml

@@ -4,6 +4,7 @@ from typing import Optional, List, Any, Dict, Union, Tuple, Callable
 import pendulum
 from airflow import DAG, configuration
 from airflow.models.baseoperator import BaseOperator
+from airflow.timetables.base import Timetable
 from airflow.utils.dates import cron_presets
 from airflow.utils.module_loading import import_string
 from airflow.utils.task_group import TaskGroup
@@ -13,7 +14,7 @@ from airfactory.common import timestamp
 from airfactory.common.logger import LoggerMixing
 from airfactory.core.consts import DefaultARGsFields, DagFields, OperatorName
 from airfactory.core.consts import TaskFields
-
+from airfactory.common.timetable import CustomTimeTable
 _TASK_FIELD_TRANSFORM = {
   "execution_timeout": timestamp.seconds_to_delta,
   "sla": timestamp.seconds_to_delta,
@@ -21,6 +22,7 @@ _TASK_FIELD_TRANSFORM = {
 
 TASK_T = Union[BaseOperator, TaskGroup]
 DEFAULT_TIMEZONE = 'Asia/Ho_Chi_Minh'
+
 
 
 def identify_fn(v):
@@ -64,8 +66,26 @@ class AirlakeDagBuilder(LoggerMixing):
     default_args.update(args)
     dag_id = dag_params["dag_id"]
     self.validate_label(dag_id)
-    self.logger.info(f"Building DAG {dag_id}")
-    self.logger.info(f"dag_params: {dag_params}")
+    if timetable:
+      dag: DAG = DAG(
+        dag_id,
+        timetable=CustomTimeTable(timetable),
+        description=dag_params.get("description", ""),
+        max_active_runs=dag_params.get(
+          "max_active_runs",
+          configuration.conf.getint(
+            "core", "max_active_runs_per_dag"),
+        ),
+        is_paused_upon_creation=dag_params.get(
+          "is_paused_upon_creation", None),
+        start_date=default_args.get(
+          DefaultARGsFields.StartDate, pendulum.today(tz=DEFAULT_TIMEZONE)),
+        default_args=default_args,
+        # Airlock bans catchup, It's hard to control when failure
+        # occurred
+        catchup=False,
+        tags=(self.dag_config.get("tags") or []),
+      )
     dag: DAG = DAG(
       dag_id,
       description=dag_params.get("description", ""),
@@ -84,7 +104,6 @@ class AirlakeDagBuilder(LoggerMixing):
       default_view=dag_params.get("default_view", "tree"),
     )
     tasks: Dict[str, Dict[str, Any]] = dag_params[DagFields.Tasks]
-    self.logger.info(f"Building tasks for DAG {dag_id} with tasks: {tasks}")
     self.make_tasks(tasks, dag=dag)
     return dag_id, dag
 
@@ -161,9 +180,8 @@ class AirlakeDagBuilder(LoggerMixing):
       task_group = TaskGroup(
         group_id=task_id,
         dag=dag,
-        task_group_id=task_id,
-        retries=task_params.get("retries", 0),
-        weight_rule=task_params.get("weight_rule", "upstream"),
+        # retries=task_params.get("retries", 0),
+        # weight_rule=task_params.get("weight_rule", "upstream"),
         parent_group=parent_group,
       )
       self.make_tasks(
@@ -172,8 +190,6 @@ class AirlakeDagBuilder(LoggerMixing):
         task_group=task_group,
       )
       return task_id, task_group
-    print(f"Building task {task_id} with operator {operator}")
-
     OperatorClass: Callable[..., BaseOperator] = import_string(operator)
     task_kwargs = self._parse_task_kwargs(task_params)
     task_kwargs["execution_timeout"] = datetime.timedelta(

@@ -1,0 +1,314 @@
+[
+    {
+      "schedule_interval": "0 0 * * *",
+      "tasks": {
+        "task1": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 1",
+          "execution_timeout": 60,
+          "sla": 30
+        },
+        "task2": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 2",
+          "execution_timeout": 60,
+          "sla": 30,
+          "dependencies": ["task1"]
+        },
+        "test_sub_dag_daily": {
+          "operator": "TaskGroup",
+          "dependencies": ["task2"],
+          "tasks": {
+            "tasksub1": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 1",
+              "execution_timeout": 60,
+              "sla": 30
+            },
+            "tasksub2": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 2",
+              "execution_timeout": 60,
+              "sla": 30,
+              "dependencies": ["tasksub1"]
+            }
+          }
+        }
+      },
+      "name": "bigdata_de_test_dag_daily",
+      "default_args": {
+        "owner": "nguyenvantuan140397@gmail.com",
+        "depends_on_past": false,
+        "email_on_failure": false,
+        "email_on_retry": false,
+        "retries": 1,
+        "default_view": "tree",
+        "conf_path": "./tests/dags/test.yaml",
+        "parent_folder": "./tests/dags",
+        "file_name": "test.yaml",
+        "role_id": 1,
+        "pool": "bigdata"
+      },
+      "tags": ["example"]
+    },
+    {
+      "schedule_interval": "0 0 * * *",
+      "tasks": {
+        "task1": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 1",
+          "execution_timeout": 60,
+          "sla": 30
+        },
+        "task2": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 2",
+          "execution_timeout": 60,
+          "sla": 30,
+          "dependencies": ["task1"]
+        },
+        "test_sub_dag_daily": {
+          "operator": "TaskGroup",
+          "dependencies": ["task2"],
+          "tasks": {
+            "tasksub1": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 1",
+              "execution_timeout": 60,
+              "sla": 30
+            },
+            "tasksub2": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 2",
+              "execution_timeout": 60,
+              "sla": 30,
+              "dependencies": ["tasksub1"]
+            }
+          }
+        }
+      },
+      "name": "bigdata_de_test_dag_daily",
+      "default_args": {
+        "owner": "nguyenvantuan140397@gmail.com",
+        "depends_on_past": false,
+        "email_on_failure": false,
+        "email_on_retry": false,
+        "retries": 1,
+        "default_view": "tree",
+        "conf_path": "./tests/dags/test.yaml",
+        "parent_folder": "./tests/dags",
+        "file_name": "test.yaml",
+        "role_id": 1,
+        "pool": "bigdata"
+      },
+      "tags": ["example"]
+    },
+    {
+      "schedule_interval": "0 0 * * *",
+      "tasks": {
+        "task1": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 1",
+          "execution_timeout": 60,
+          "sla": 30
+        },
+        "task2": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 2",
+          "execution_timeout": 60,
+          "sla": 30,
+          "dependencies": ["task1"]
+        },
+        "test_sub_dag_daily": {
+          "operator": "TaskGroup",
+          "dependencies": ["task2"],
+          "tasks": {
+            "tasksub1": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 1",
+              "execution_timeout": 60,
+              "sla": 30
+            },
+            "tasksub2": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 2",
+              "execution_timeout": 60,
+              "sla": 30,
+              "dependencies": ["tasksub1"]
+            }
+          }
+        }
+      },
+      "name": "bigdata_de_test_dag_daily",
+      "default_args": {
+        "owner": "nguyenvantuan140397@gmail.com",
+        "depends_on_past": false,
+        "email_on_failure": false,
+        "email_on_retry": false,
+        "retries": 1,
+        "default_view": "tree",
+        "conf_path": "./tests/dags/test.yaml",
+        "parent_folder": "./tests/dags",
+        "file_name": "test.yaml",
+        "role_id": 1,
+        "pool": "bigdata"
+      },
+      "tags": ["example"]
+    },
+    {
+      "schedule_interval": "0 0 * * *",
+      "tasks": {
+        "task1": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 1",
+          "execution_timeout": 60,
+          "sla": 30
+        },
+        "task2": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 2",
+          "execution_timeout": 60,
+          "sla": 30,
+          "dependencies": ["task1"]
+        },
+        "test_sub_dag_daily": {
+          "operator": "TaskGroup",
+          "dependencies": ["task2"],
+          "tasks": {
+            "tasksub1": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 1",
+              "execution_timeout": 60,
+              "sla": 30
+            },
+            "tasksub2": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 2",
+              "execution_timeout": 60,
+              "sla": 30,
+              "dependencies": ["tasksub1"]
+            }
+          }
+        }
+      },
+      "name": "bigdata_de_test_dag_monthly",
+      "default_args": {
+        "owner": "nguyenvantuan140397@gmail.com",
+        "depends_on_past": false,
+        "email_on_failure": false,
+        "email_on_retry": false,
+        "retries": 1,
+        "default_view": "tree",
+        "conf_path": "./tests/dags/test.yaml",
+        "parent_folder": "./tests/dags",
+        "file_name": "test.yaml",
+        "role_id": 1,
+        "pool": "bigdata"
+      },
+      "tags": ["example"]
+    },
+    {
+      "schedule_interval": "0 0 * * *",
+      "tasks": {
+        "task1": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 1",
+          "execution_timeout": 60,
+          "sla": 30
+        },
+        "task2": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 2",
+          "execution_timeout": 60,
+          "sla": 30,
+          "dependencies": ["task1"]
+        },
+        "test_sub_dag_daily": {
+          "operator": "TaskGroup",
+          "dependencies": ["task2"],
+          "tasks": {
+            "tasksub1": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 1",
+              "execution_timeout": 60,
+              "sla": 30
+            },
+            "tasksub2": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 2",
+              "execution_timeout": 60,
+              "sla": 30,
+              "dependencies": ["tasksub1"]
+            }
+          }
+        }
+      },
+      "name": "bigdata_de_test_dag_monthly",
+      "default_args": {
+        "owner": "nguyenvantuan140397@gmail.com",
+        "depends_on_past": false,
+        "email_on_failure": false,
+        "email_on_retry": false,
+        "retries": 1,
+        "default_view": "tree",
+        "conf_path": "./tests/dags/test.yaml",
+        "parent_folder": "./tests/dags",
+        "file_name": "test.yaml",
+        "role_id": 1,
+        "pool": "bigdata"
+      },
+      "tags": ["example"]
+    },
+    {
+      "schedule_interval": "0 0 * * *",
+      "tasks": {
+        "task1": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 1",
+          "execution_timeout": 60,
+          "sla": 30
+        },
+        "task2": {
+          "operator": "airflow.operators.bash.BashOperator",
+          "bash_command": "echo 2",
+          "execution_timeout": 60,
+          "sla": 30,
+          "dependencies": ["task1"]
+        },
+        "test_sub_dag_daily": {
+          "operator": "TaskGroup",
+          "dependencies": ["task2"],
+          "tasks": {
+            "tasksub1": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 1",
+              "execution_timeout": 60,
+              "sla": 30
+            },
+            "tasksub2": {
+              "operator": "airflow.operators.bash.BashOperator",
+              "bash_command": "echo 2",
+              "execution_timeout": 60,
+              "sla": 30,
+              "dependencies": ["tasksub1"]
+            }
+          }
+        }
+      },
+      "name": "bigdata_de_test_dag_monthly",
+      "default_args": {
+        "owner": "nguyenvantuan140397@gmail.com",
+        "depends_on_past": false,
+        "email_on_failure": false,
+        "email_on_retry": false,
+        "retries": 1,
+        "default_view": "tree",
+        "conf_path": "./tests/dags/test.yaml",
+        "parent_folder": "./tests/dags",
+        "file_name": "test.yaml",
+        "role_id": 1,
+        "pool": "bigdata"
+      },
+      "tags": ["example"]
+    }
+  ]

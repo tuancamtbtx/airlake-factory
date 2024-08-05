@@ -4,3 +4,4 @@ loguru
 PyYAML==6.0
 pytest
 pendulum==3.0.0
+dacite

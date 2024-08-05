@@ -7,8 +7,8 @@ from typing import Dict, Any
 import jinja2
 
 from airfactory.common.logger import LoggerMixing
-from airfactory.core.consts import DefaultARGsFields, DagFields, OperatorName
 from airfactory.compiler.dagcompiler import CommonCompiler
+from airfactory.core.consts import DefaultARGsFields, DagFields
 from airfactory.dagbuilder import AirlakeDagBuilder
 
 logger_factory = LoggerMixing()

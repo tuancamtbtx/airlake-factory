@@ -1,10 +1,10 @@
-import os
-import yaml
-from typing import Any, Dict, List, Optional,Tuple
-from dataclasses import dataclass
 import dataclasses
+import os
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional
 
 import dacite
+import yaml
 
 from airfactory.common.logger import LoggerMixing
 from airfactory.common.utils import NoDatesSafeLoader
@@ -85,30 +85,21 @@ class SupportCompiler:
 
 
 class AirlakeDagConfig(LoggerMixing):
-  def __init__(self,path: str):
+  def __init__(self, path: str):
     self.path = path
     self.dag_compilers = {
-        SupportCompiler.V1: DagCompilerV1(
-            path_conf=self.path
-        )
+      SupportCompiler.V1: DagCompilerV1(
+        path_conf=self.path
+      )
     }
 
-  def compile(self, conf: Dict[str, Any], extra: Dict[str, Any] = None) -> List[Dict[str, Any]]:
+  def compile(self, conf: Dict[str, Any], extra: Dict[str, Any] = None) -> Dict[str, Any]:
     apiVerion = (
-      conf.get("apiVerion") or conf.get("apiVersion") or SupportCompiler.V1
+        conf.get("apiVerion") or conf.get("apiVersion") or SupportCompiler.V1
     )
-    return list(self.dag_compilers[apiVerion].compile(conf, extra))
-  
-  def _try_gen(self, conf: Dict[str, Any]) -> Tuple[bool, List[str], str]:
-    compiled_dags = []
-    try:
-      compiled_dags = self.compile(conf)
-    except Exception as e:
-      self.logger.error("Failed to compile the dags", exc_info=True)
-      return False, compiled_dags, str(e)
+    return self.dag_compilers[apiVerion].compile(conf)
 
-
-  def read_content(self ):
+  def read_content(self):
     with open(self.path, "r") as f:
       conf = yaml.load(f, Loader=NoDatesSafeLoader)
 
@@ -150,6 +141,6 @@ class AirlakeDagConfig(LoggerMixing):
     name_prefix = default_conf.prefix
     base_name = os.path.splitext(sub_path)[0]
     if not base_name.startswith(name_prefix):
-      base_name = "{}_{}".format(name_prefix, base_name)
+      base_name = f"{name_prefix}_{base_name}_{conf[FIELD_DAGS_NAME]}"
     conf[FIELD_DAGS_NAME] = base_name
     return conf

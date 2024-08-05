@@ -1,4 +1,4 @@
-name: airtrust_docker_image_ci
+name: airfactory_docker_image_ci
 
 on:
   push:

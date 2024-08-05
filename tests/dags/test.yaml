@@ -1,5 +1,4 @@
 apiVersion: v1
-kind: DAG
 schedule_interval: 0 0 * * *
 timetable:
   start_date: '2024-08-01'
@@ -13,34 +12,33 @@ default_args:
   email_on_retry: false
   retries: 1
   default_view: tree
-dags:
-  test_dag_daily:
+name: test_dag_daily
+tasks:
+  task1:
+    operator: airflow.operators.bash.BashOperator
+    bash_command: echo 1
+    execution_timeout: 60
+    sla: 30
+  task2:
+    operator: airflow.operators.bash.BashOperator
+    bash_command: echo 2
+    execution_timeout: 60
+    sla: 30
+    dependencies:
+      - task1
+  test_sub_dag_daily:
+    operator: TaskGroup
+    dependencies: ["task2"]
     tasks:
-      task1:
+      tasksub1:
         operator: airflow.operators.bash.BashOperator
         bash_command: echo 1
         execution_timeout: 60
         sla: 30
-      task2:
+      tasksub2:
         operator: airflow.operators.bash.BashOperator
         bash_command: echo 2
         execution_timeout: 60
         sla: 30
         dependencies:
-          - task1
-      test_sub_dag_daily:
-        operator: TaskGroup
-        dependencies: ["task2"]
-        tasks:
-          tasksub1:
-            operator: airflow.operators.bash.BashOperator
-            bash_command: echo 1
-            execution_timeout: 60
-            sla: 30
-          tasksub2:
-            operator: airflow.operators.bash.BashOperator
-            bash_command: echo 2
-            execution_timeout: 60
-            sla: 30
-            dependencies:
-              - tasksub1
+          - tasksub1

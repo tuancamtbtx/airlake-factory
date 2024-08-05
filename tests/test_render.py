@@ -1,4 +1,4 @@
-from airfactory.dagrender import dump_to_py
+from airfactory.render import dump_to_py
 
 import unittest
 

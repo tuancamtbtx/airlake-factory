@@ -1,6 +1,7 @@
 from airfactory.dagbuilder import AirlakeDagBuilder
 from airfactory.dagconfig import AirlakeDagConfig,TeamConfig
-from airfactory.compiler.dagcompiler import CommonCompiler
+
+
 team_conf = TeamConfig(
 	name="bigdata",
 	pool="bigdata",
@@ -17,16 +18,16 @@ dag_conf = AirlakeDagConfig(
     path="./tests/dags/test.yaml"
 )
 dag_config = dag_conf.read_content()
-print(dag_config)
 merge_config = dag_conf.merge_conf(
 	conf=dag_config,
 	sub_path="de",
 	default_conf=team_conf
 )
-compile_config = dag_conf.compile(conf=merge_config)
+compile_config =dag_conf.compile(merge_config)
 print(compile_config)
+
 dag = AirlakeDagBuilder(
-    dag_name="test_dag",
-    dag_config=compile_config[0],
+    dag_name=compile_config["name"],
+    dag_config=compile_config,
 ).build()
 print(dag)
