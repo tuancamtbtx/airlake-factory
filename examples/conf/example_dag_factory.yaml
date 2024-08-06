@@ -19,6 +19,29 @@ tasks:
     bash_command: echo 1
     execution_timeout: 60
     sla: 30
+    executor_config:
+      pod_override_builder:
+      image_name: apache/spark
+      image_pull_policy: IfNotPresent
+      image_tag:
+        type: variable
+        value: spark-docker-image
+      node_preset: db_sync
+      spec:
+        containers:
+          - name: base
+            volumeMounts:
+              - name: gcp
+                mountPath: /.secrets
+            env:
+              - name: POD_IP
+                valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+        volumes:
+          - name: gcp
+            configMap:
+            name: "testhello"
   transform_data:
     operator: airflow.operators.bash.BashOperator
     bash_command: echo 2
