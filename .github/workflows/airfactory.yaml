@@ -6,11 +6,6 @@ on:
       - main
     tags:
       - '*'
-
-env:
-  REGISTRY: registry.trustingsocial.com
-  IMAGE_NAME: de/airtrust
-
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
