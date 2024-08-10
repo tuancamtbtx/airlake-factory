@@ -19,14 +19,16 @@ COPY --chown=airflow:airflow . /bigdata/airfactory
 COPY requirements.txt /
 ENV PYTHONPATH=$PYTHONPATH:/bigdata/airfactory
 
-USER airflow
-
 COPY requirements.txt /
 RUN pip install --no-cache-dir "apache-airflow==${AIRFLOW_VERSION}" -r /requirements.txt
 
-WORKDIR $AIRFLOW_HOME
 
-# user location for install python pacakges
-RUN mkdir -p /home/airflow/.local/lib/python3.8/site-packages
-RUN mkdir -p /home/airflow/airflow
 
+ENV TINI_VERSION v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static /usr/bin/tini
+RUN chmod +x /usr/bin/tini
+
+ENV AIRFLOW_HOME=/home/airflow/airflow
+
+RUN mkdir -p $AIRFLOW_HOME
+RUN chown airflow:airflow $AIRFLOW_HOME
